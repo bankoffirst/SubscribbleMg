@@ -1,5 +1,6 @@
 package com.example.subscribble.navbar
 
+
 import com.example.subscribble.R
 
 sealed class NavScreen(
@@ -14,5 +15,13 @@ sealed class NavScreen(
     object AddSubscription : NavScreen(
         route = "AddSubscription"
     )
+
+
+    object ShowDetailScreen : NavScreen(
+        route = "ShowDetailScreen"
+    )
 }
+
+}
+
 

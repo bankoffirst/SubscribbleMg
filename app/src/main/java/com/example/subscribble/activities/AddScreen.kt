@@ -22,11 +22,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+
+import androidx.compose.ui.res.colorResource
+
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+
+import com.example.subscribble.R
+
+
 import com.example.subscribble.navbar.NavScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -38,11 +45,11 @@ fun AddScreen(navController: NavController){
                 text = "Add",
                 fontWeight = FontWeight.Bold,
                 fontSize = 24.sp,
-                modifier = Modifier.padding(start = 26.dp, top = 22.dp, bottom = 22.dp)
+                modifier = Modifier.padding(start = 26.dp, top = 22.dp, bottom = 22.dp),
+                color = colorResource(id = R.color.custom_text)
             )
         }
     ) { contentPadding ->
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -55,6 +62,32 @@ fun AddScreen(navController: NavController){
                     text = "New Payment method",
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
+
+                    modifier = Modifier.padding(start = 26.dp, top = 28.dp),
+                    color = colorResource(id = R.color.custom_text)
+                )
+
+                //Show add payment method
+                Card(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(220.dp)
+                    .padding(start = 20.dp, end = 20.dp, top = 28.dp)
+                    .shadow(elevation = 8.dp, shape = RoundedCornerShape(20.dp))
+                    .clickable { navController.navigate(NavScreen.AddPayment.route) }, //To add card
+                    shape = RoundedCornerShape(20.dp),
+                    colors = CardDefaults.cardColors(containerColor = colorResource(id = R.color.custom_list))
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Add icon",
+                        tint = Color(0xFFD9D9D9),
+                        modifier = Modifier
+                            .size(40.dp)
+                            .align(Alignment.CenterHorizontally)
+                            .weight(1f)
+                    )
+                }
+
                     modifier = Modifier.padding(start = 26.dp, top = 28.dp)
                 )
 
@@ -79,13 +112,19 @@ fun AddScreen(navController: NavController){
                         )
                     }
 
+
                 //Show Streaming
 
                 Text(
                     text = "New Subscription",
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
+
+                    modifier = Modifier.padding(start = 26.dp, top = 44.dp),
+                    color = colorResource(id = R.color.custom_text)
+
                     modifier = Modifier.padding(start = 26.dp, top = 100.dp)
+
                 )
 
                 //Show add subscription method

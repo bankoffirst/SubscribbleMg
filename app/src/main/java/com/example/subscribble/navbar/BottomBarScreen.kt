@@ -32,6 +32,9 @@ sealed class BottomBarScreen(
     object Bills: BottomBarScreen(
         route = "bills",
         title = "Bills",
+
+        icon = R.drawable.ic_receipt,
         icon = R.drawable.ic_mail,
+
     )
 }
