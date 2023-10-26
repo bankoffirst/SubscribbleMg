@@ -5,12 +5,20 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+
 import com.example.subscribble.activities.AddPayment
 import com.example.subscribble.activities.AddScreen
 import com.example.subscribble.activities.AddSubscription
 import com.example.subscribble.activities.DataVisualizationScreenScreen
 import com.example.subscribble.activities.HomeScreen
 import com.example.subscribble.activities.ShowDetailScreen
+
+import com.example.subscribble.activities.AddScreen
+import com.example.subscribble.activities.DataVisualizationScreenScreen
+import com.example.subscribble.activities.HomeScreen
+import com.example.subscribble.activities.AddPayment
+import com.example.subscribble.activities.AddSubscription
+
 import com.example.subscribble.activities.UpcomingBillsScreen
 
 @Composable
@@ -49,6 +57,7 @@ fun NavGraphControl(
         {
             ShowDetailScreen()
         }
+
     }
 }
 

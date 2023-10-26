@@ -32,16 +32,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.subscribble.R
 import com.example.subscribble.database.module.SubscriptionViewModel
+
+import androidx.navigation.NavController
+
 import com.example.subscribble.navbar.NavScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+
 fun HomeScreen(navController: NavController, subViewmodel: SubscriptionViewModel = hiltViewModel()) {
+
+fun HomeScreen(navController: NavController) {
+
 
     val total = 0f
     val formattedTotal = String.format("%.2f", total)
@@ -177,8 +185,25 @@ fun HomeScreen(navController: NavController, subViewmodel: SubscriptionViewModel
 
                 Column(modifier = Modifier.fillMaxHeight()) {
 
+
                     if (subscription.value.isEmpty()) {    //Show add button when haveStreaming is false
                         Card(
+
+                if (!haveStreaming){    //Show add button when haveStreaming is false
+                    Card(modifier = Modifier
+                        .fillMaxWidth()
+                        .height(120.dp)
+                        .padding(start = 20.dp, end = 20.dp, top = 28.dp)
+                        .shadow(elevation = 8.dp, shape = RoundedCornerShape(20.dp))
+                        .clickable {navController.navigate(NavScreen.AddSubscription.route)}, //To add Screen!!!!!!!!!!!!
+                        shape = RoundedCornerShape(20.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color.White)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = "Add icon",
+                            tint = Color(0xFFD9D9D9),
+
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(100.dp)
@@ -291,18 +316,31 @@ fun HomeScreen(navController: NavController, subViewmodel: SubscriptionViewModel
 
 
 
+
                         }
                     }
 
                 }
             }
+
+
+            }
+
+
+
         }
     }
+
 
 
 
 //@Preview(showBackground = true, device = "spec:width=1440px,height=3088px,dpi=441")
 //@Composable
 //fun HomeScreenPreview() {
+
+//@Preview(showBackground = true, device = "spec:width=1440px,height=3088px,dpi=441")
+//@Composable
+//fun HomeScreenPreview(){
+
 //    HomeScreen()
 //}

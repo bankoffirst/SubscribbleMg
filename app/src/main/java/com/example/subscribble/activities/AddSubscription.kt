@@ -38,7 +38,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+
 import androidx.compose.runtime.collectAsState
+
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -56,22 +58,32 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.subscribble.R
 import com.example.subscribble.classify
 import com.example.subscribble.database.SubsList
 import com.example.subscribble.database.module.SubscriptionViewModel
+
+import androidx.navigation.NavController
+
 import com.example.subscribble.navbar.BottomBarScreen
 import com.example.subscribble.navbar.NavScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+
 fun AddSubscription(navController: NavController, subViewmodel: SubscriptionViewModel = hiltViewModel()) {
 
     val subscriptions = subViewmodel.subs.collectAsState(initial = emptyList())
 
     val listItems = arrayOf("Netflix","Spotify","DisneyPlus","Youtube","AppleTV","AppleMusic")
+
+fun AddSubscription(navController: NavController) {
+
+    val listItems = arrayOf("Netflix","Disney+","Youtube","Spotify")
+
 
     // state of menu
     var expanded by remember {
@@ -94,7 +106,11 @@ fun AddSubscription(navController: NavController, subViewmodel: SubscriptionView
     val selectDay = calendar[Calendar.DAY_OF_MONTH]
     val selectDate = remember { mutableStateOf("")}
 
+
     val dateToday = DatePickerDialog(context, R.style.DatePickerTheme,
+
+    val dateToday = DatePickerDialog(context,
+
         {_: DatePicker, selectYear:Int, selectMonth:Int, selectDay:Int ->
             selectDate.value = "$selectDay/${selectMonth +1}/$selectYear"
         }, selectYear,selectMonth,selectDay
@@ -159,6 +175,7 @@ fun AddSubscription(navController: NavController, subViewmodel: SubscriptionView
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 15.dp, start = 26.dp, end = 15.dp)
+
                     ) {
                         Box(
                             modifier = Modifier
@@ -199,11 +216,57 @@ fun AddSubscription(navController: NavController, subViewmodel: SubscriptionView
                                             },
                                             modifier = Modifier.background(color = Color.White)
                                         )
+
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .align(Alignment.Top)
+                            ) {
+                                ExposedDropdownMenuBox(
+                                    expanded = expanded,
+                                    onExpandedChange = {
+                                        expanded = !expanded
+                                    }
+                                ) {
+                                    OutlinedTextField(
+                                        value = selectedItem,
+                                        onValueChange = {},
+                                        readOnly = true,
+                                        trailingIcon = {
+                                            ExposedDropdownMenuDefaults.TrailingIcon(
+                                                expanded = expanded
+                                            )
+                                        },
+                                        modifier = Modifier
+                                            .menuAnchor(),
+                                        textStyle = TextStyle(fontSize = 18.sp)
+                                    )
+
+                                    ExposedDropdownMenu(
+                                        expanded = expanded,
+                                        onDismissRequest = { expanded = false },
+                                        modifier = Modifier.background(color = Color.White)
+                                    ) {
+                                        listItems.forEach { item ->
+                                            DropdownMenuItem(
+                                                text = { Text(text = item) },
+                                                onClick = {
+                                                    selectedItem = item
+                                                    expanded = false
+                                                },
+                                                modifier = Modifier.background(color = Color.White)
+                                            )
+                                        }
+
                                     }
                                 }
                             }
                         }
+
                     }
+
+
 
                     Text(
                         text = "Plan",
@@ -272,6 +335,7 @@ fun AddSubscription(navController: NavController, subViewmodel: SubscriptionView
                                 .padding(start = 26.dp)
                                 .background(Color.White)
 
+
                         ) {
                             if (selectDate.value.isNotEmpty()){
                                 Text(
@@ -287,6 +351,23 @@ fun AddSubscription(navController: NavController, subViewmodel: SubscriptionView
                                 )
 
                             }
+
+                            ) {
+                                if (selectDate.value.isNotEmpty()){
+                                    Text(
+                                        text = "${selectDate.value}",
+                                        fontSize = 18.sp,
+                                        color = Color.Black
+                                )
+                            } else {
+                                    Icon(
+                                        imageVector = Icons.Default.DateRange,
+                                        contentDescription = null,
+                                        tint = Color.Black
+                                    )
+
+                                }
+
                         }
                     }
 
@@ -336,6 +417,7 @@ fun AddSubscription(navController: NavController, subViewmodel: SubscriptionView
 
                     IconButton(
                         onClick = {
+
                                   if (selectedItem != "" && numPrice != "" && selectDate.value != ""){
                                       subViewmodel.insertSub(
                                           SubsList(
@@ -352,6 +434,10 @@ fun AddSubscription(navController: NavController, subViewmodel: SubscriptionView
                                       println("Error!")
                                   }
                             //navController.navigate(BottomBarScreen.Home.route)
+
+                            navController.navigate(BottomBarScreen.Home.route)
+                            //println("Card Name : $textName. And Details : $textDetail")
+
                         },
                         content = {
                             Icon(
@@ -369,10 +455,18 @@ fun AddSubscription(navController: NavController, subViewmodel: SubscriptionView
                             .size(50.dp)
                     )
 
+
                 }
             }
         }
     }
+
+
+                    }
+                }
+            }
+        }
+    
 
 }
 
