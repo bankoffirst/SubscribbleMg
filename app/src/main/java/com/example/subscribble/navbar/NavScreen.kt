@@ -1,6 +1,8 @@
 package com.example.subscribble.navbar
 
 
+import com.example.subscribble.R
+
 sealed class NavScreen(
     val route: String
 ){
@@ -14,7 +16,12 @@ sealed class NavScreen(
         route = "AddSubscription"
     )
 
+
     object ShowDetailScreen : NavScreen(
         route = "ShowDetailScreen"
     )
 }
+
+}
+
+
