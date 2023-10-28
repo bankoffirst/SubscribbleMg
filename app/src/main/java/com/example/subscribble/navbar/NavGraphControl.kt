@@ -1,6 +1,7 @@
 package com.example.subscribble.navbar
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -20,6 +21,8 @@ import com.example.subscribble.activities.AddPayment
 import com.example.subscribble.activities.AddSubscription
 
 import com.example.subscribble.activities.UpcomingBillsScreen
+import com.example.subscribble.database.SubsList
+import com.example.subscribble.database.module.SubscriptionViewModel
 
 @Composable
 fun NavGraphControl(
